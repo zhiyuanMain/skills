@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <p>为避免缓存，请使用crtl+F5强制刷新看完整效果</p>
+    <img src="http://webpack.github.io/assets/what-is-webpack.png" alt="">
+    <div id="container"></div>
+    <script>
+        var remoteImgUrl = 'http://webpack.github.io/assets/what-is-webpack.png', //需要加载时间较长的图片源路径
+            loadingImgUrl = 'assets/img/loading.gif';
+        var myImage = function() {
+            var domImg = document.createElement('img');
+            document.getElementById('container').appendChild(domImg);
+            var img = new Image();
+            img.onload = function() {
+                domImg.src = this.src;
+            }
+            return {
+                setUrl: function(realUrl) {
+                    domImg.src = loadingImgUrl;
+                    img.src = realUrl;
+                }
+            }
+        }
+        for (var index = 0; index < 5; index++) {
+            myImage().setUrl(remoteImgUrl);
+        }
+    </script>
+</body>
+</html>
